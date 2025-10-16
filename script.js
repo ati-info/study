@@ -211,3 +211,72 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             title = routines[semesterId].name;
+routineHTML = createMessage(রুটিন আপডেটের কাজ চলছে। শীঘ্রই জানানো হবে।);
+            sidebar.classList.remove('sidebar-hidden');
+            content.classList.remove('content-full');
+        }
+
+        routineDisplay.innerHTML = routineHTML;
+    }
+
+    function createRoutineTable(title, routineData) {
+        let dailyRoutineHTML = '';
+        for (const day in routineData) {
+            let subjectsHTML = '';
+            routineData[day].forEach(period => {
+                subjectsHTML += <div class="time-and-subject"><strong>(${period.time})</strong> ${period.subject}</div>;
+            });
+            dailyRoutineHTML += 
+                <tr>
+                    <td>${day}</td>
+                    <td>${subjectsHTML}</td>
+                </tr>
+            ;
+        }
+        return 
+            <h2>${title}</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>দিন</th>
+                        <th>বিষয়</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${dailyRoutineHTML}
+                </tbody>
+            </table>
+        ;
+    }
+
+    function createMessage(message) {
+        return <div class="message-box">${message}</div>;
+    }
+
+    function toggleLight() {
+        isLightOn = !isLightOn;
+
+        if (isLightOn) {
+            bulbBody.classList.add('on');
+            bulbFlash.classList.add('on');
+            document.body.classList.remove('light-off');
+            document.body.classList.add('light-on');
+        } else {
+            bulbBody.classList.remove('on');
+            bulbFlash.classList.remove('on');
+            document.body.classList.remove('light-on');
+            document.body.classList.add('light-off');
+        }
+
+        bulbCord.classList.add('pulled');
+        setTimeout(() => {
+            bulbCord.classList.remove('pulled');
+        }, 200);
+    }
+
+    // Initial state
+    document.body.classList.add('light-off');
+    mainContainer.classList.add('hidden');
+    welcomePopup.classList.remove('hidden');
+    resetInactivityTimer();
+});
