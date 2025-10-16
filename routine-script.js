@@ -2,14 +2,13 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ========== PREMIUM LOADER ==========
+    // ========== PREMIUM LOADER (আগের মতো) ==========
     const premiumLoader = document.getElementById('premium-loader');
     const progressFill = document.querySelector('.progress-fill');
     
     let progress = 0;
-    // দ্রুত লোডিং (প্রায় 1 সেকেন্ড) করার জন্য interval 20ms এবং progress-এর পরিমাণ কমানো হয়েছে
     const loadingInterval = setInterval(() => {
-        progress += Math.random() * 8; // প্রোগ্রেস বাড়ার হার
+        progress += Math.random() * 8;
         if (progress >= 100) {
             progress = 100;
             clearInterval(loadingInterval);
@@ -18,11 +17,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => {
                     premiumLoader.style.display = 'none';
                 }, 500);
-            }, 200); // 200ms পরে ফেড আউট শুরু
+            }, 200);
         }
         progressFill.style.width = progress + '%';
-    }, 20); // 20ms ইন্টারভালে প্রোগ্রেস চেক
-// [Code snippet 1: Updated Loading Interval]
+    }, 20);
 
     // ========== DOM ELEMENTS ==========
     const welcomePopup = document.getElementById('welcome-popup');
@@ -35,17 +33,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const routineDisplay = document.getElementById('routine-display');
     const initialMessage = document.querySelector('.initial-message');
     const creatorText = document.getElementById('creator-text');
-    const menuToggleBtn = document.getElementById('menu-toggle-btn'); // নতুন যোগ করা
+    const menuToggleBtn = document.getElementById('menu-toggle-btn');
 
-    // ========== LIGHT BULB ELEMENTS ==========
+    // ========== LIGHT BULB ELEMENTS (আগের মতো) ==========
     const lightBulbContainer = document.getElementById('light-bulb-container');
     const bulbBody = document.querySelector('.bulb-body');
     const bulbCord = document.querySelector('.bulb-cord');
     const bulbFlash = document.querySelector('.bulb-flash');
     let isLightOn = false;
     let inactivityTimer;
+    let menuHideTimer; // মেনু বাটন হাইড করার জন্য নতুন টাইমার
 
-    // ========== LIGHT BULB FUNCTIONS (কোন পরিবর্তন নেই) ==========
+    // ========== LIGHT BULB FUNCTIONS (আগের মতো) ==========
     function hideLightBulb() {
         if (lightBulbContainer) {
             lightBulbContainer.style.opacity = '0';
@@ -63,16 +62,43 @@ document.addEventListener('DOMContentLoaded', () => {
     function resetInactivityTimer() {
         clearTimeout(inactivityTimer);
         showLightBulb();
-        inactivityTimer = setTimeout(hideLightBulb, 5000); // 5 সেকেন্ডে হাইড হবে
+        inactivityTimer = setTimeout(hideLightBulb, 5000);
+    }
+    
+    // ========== NEW FUNCTION: মেনু বাটন লুকিয়ে দেওয়া ==========
+    function hideMenuButton() {
+        if (menuToggleBtn) {
+            menuToggleBtn.style.opacity = '0';
+            setTimeout(() => {
+                 menuToggleBtn.style.display = 'none';
+            }, 300); // CSS transition time
+        }
     }
 
-    // ========== EVENT LISTENERS FOR USER ACTIVITY (কোন পরিবর্তন নেই) ==========
-    window.addEventListener('scroll', resetInactivityTimer);
-    window.addEventListener('mousemove', resetInactivityTimer);
-    window.addEventListener('touchstart', resetInactivityTimer);
-    window.addEventListener('keydown', resetInactivityTimer);
+    // ========== NEW FUNCTION: মেনু বাটন দেখিয়ে আবার লুকিয়ে দেওয়া ==========
+    function showAndHideMenuButton() {
+        clearTimeout(menuHideTimer);
+        if (menuToggleBtn && window.innerWidth <= 768) {
+             menuToggleBtn.style.display = 'block';
+             menuToggleBtn.style.opacity = '1';
+             menuHideTimer = setTimeout(hideMenuButton, 2000); // ২ সেকেন্ড পর হাইড হবে
+        }
+    }
 
-    // ========== ROUTINE DATA STRUCTURE (কোন পরিবর্তন নেই) ==========
+    // ========== EVENT LISTENERS FOR USER ACTIVITY (রিসেট টাইমার এবং মেনু হাইড/শো) ==========
+    window.addEventListener('scroll', () => { resetInactivityTimer(); showAndHideMenuButton(); });
+    window.addEventListener('mousemove', () => { resetInactivityTimer(); showAndHideMenuButton(); });
+    window.addEventListener('touchstart', () => { resetInactivityTimer(); showAndHideMenuButton(); });
+    window.addEventListener('keydown', () => { resetInactivityTimer(); showAndHideMenuButton(); });
+    window.addEventListener('resize', () => { 
+        if (window.innerWidth > 768) {
+            if (menuToggleBtn) {
+                menuToggleBtn.style.display = 'none';
+            }
+        }
+    });
+
+    // ========== ROUTINE DATA STRUCTURE (আগের মতো) ==========
     const routines = {
         '1': {
             name: '১ম সেমিস্টার',
@@ -141,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => {
                 welcomePopup.style.display = 'none';
                 mainContainer.classList.remove('hidden');
-                menuToggleBtn.classList.remove('hidden'); // মেনু বাটন দেখানো
+                showAndHideMenuButton(); // মেনু বাটন দেখানো
             }, 300);
         });
     }
@@ -167,15 +193,15 @@ document.addEventListener('DOMContentLoaded', () => {
         lightBulbContainer.addEventListener('click', toggleLight);
     }
 
-    if (menuToggleBtn) { // নতুন মেনু বাটন ফাংশনালিটি
+    if (menuToggleBtn) {
         menuToggleBtn.addEventListener('click', toggleSidebar);
     }
 
     // ========== CORE FUNCTIONS ==========
 
-    // নতুন ফাংশন: মোবাইল মেনু টগল
     function toggleSidebar() {
         sidebar.classList.toggle('mobile-hidden');
+        showAndHideMenuButton(); // সাইডবার টগল করার পর আবার মেনু বাটন দেখিয়ে হাইড করা
     }
 
     function handleSemesterClick(e) {
@@ -185,6 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // মোবাইল ডিভাইসে সাইডবার হাইড করা
         if (window.innerWidth <= 768) {
              sidebar.classList.add('mobile-hidden');
+             showAndHideMenuButton();
         }
 
         const allSemesterItems = semesterList.querySelectorAll('li');
@@ -212,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // মোবাইল ডিভাইসে সাইডবার হাইড করা
         if (window.innerWidth <= 768) {
             sidebar.classList.add('mobile-hidden');
+            showAndHideMenuButton();
         }
 
         const allBranchItems = branchNav.querySelectorAll('.branch-item');
@@ -236,11 +264,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (branchData.routine) {
                 routineHTML = createRoutineTable(title, branchData.routine);
-                // sidebar.classList.add('sidebar-hidden'); // এই লাইনটি শুধুমাত্র লার্জ স্ক্রিনের জন্য রাখা উচিত
                 content.classList.add('content-full');
             } else {
                 routineHTML = createMessage(`রুটিন আপডেটের কাজ চলছে। শীঘ্রই জানানো হবে।`);
-                // sidebar.classList.add('sidebar-hidden');
                 content.classList.add('content-full');
             }
         } else {
@@ -253,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
         routineDisplay.innerHTML = routineHTML;
     }
 
-    // ========== HELPER FUNCTIONS ==========
+    // ========== HELPER FUNCTIONS (আগের মতো) ==========
     function createRoutineTable(title, routineData) {
         let dailyRoutineHTML = '';
         for (const day in routineData) {
@@ -270,7 +296,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return `
             <h2>${title}</h2>
-            <div class="table-container"> <table>
+            <div class="table-container">
+                <table>
                     <thead>
                         <tr>
                             <th>দিন</th>
@@ -320,4 +347,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     resetInactivityTimer();
 });
-                             
+                                                  
