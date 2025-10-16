@@ -385,3 +385,161 @@ th, td {
 
 th {
     background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+animation: fadeIn 1s forwards 1s;
+    z-index: 998;
+}
+
+#creator-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: transform 0.6s;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#creator-text:hover {
+    color: #4CAF50;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+.annoy {
+    animation: shake 0.5s infinite;
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    .sidebar-hidden {
+        transform: translateY(-100%);
+    }
+
+    .branch-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .loader-rings {
+        width: 120px;
+        height: 120px;
+    }
+
+    .ring-1 {
+        width: 120px;
+        height: 120px;
+    }
+
+    .ring-2 {
+        width: 85px;
+        height: 85px;
+        top: 17.5px;
+        left: 17.5px;
+    }
+
+    .ring-3 {
+        width: 50px;
+        height: 50px;
+        top: 35px;
+        left: 35px;
+    }
+
+    .progress-bar {
+        width: 250px;
+    }
+}
+
+/* ========== ANIMATIONS ========== */
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes gradient-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes dot-bounce {
+    0%, 80%, 100% { 
+        transform: scale(0);
+        opacity: 0.5;
+    }
+    40% { 
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes glow-pulse {
+    0%, 100% {
+        box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
+    }
+    50% {
+        box-shadow: 0 0 25px rgba(76, 175, 80, 1);
+    }
+}
+
+@keyframes fade-in-out {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeInScale {
+    from { 
+        opacity: 0; 
+        transform: scale(0.95); 
+    }
+    to { 
+        opacity: 1;
+        transform: scale(1); 
+    }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.8); }
+    to { transform: scale(1); }
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+    40% { transform: translateY(-30px); }
+    60% { transform: translateY(-15px); }
+}
+
+@keyframes rotate-slight {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+@keyframes batFlap {
+    0% { transform: scaleY(1); }
+    50% { transform: scaleY(0.8); }
+    100% { transform: scaleY(1); }
+}
+
+@keyframes bounceUpDown {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0) rotate(0deg); }
+    25% { transform: translateX(-8px) rotate(-3deg); }
+    75% { transform: translateX(8px) rotate(3deg); }
+}
