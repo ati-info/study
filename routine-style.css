@@ -194,3 +194,194 @@ body {
 
 .emoji {
     font-size: 5em;
+animation: bounce 1.5s infinite, rotate-slight 2s ease-in-out infinite;
+}
+
+.welcome-text {
+    font-family: 'Teko', sans-serif;
+    color: #4CAF50;
+    font-size: 3.5em;
+    margin: 20px 0;
+    text-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+}
+
+.popup-content p {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    color: #ccc;
+}
+
+#close-popup-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 1.3em;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+#close-popup-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.6);
+}
+
+/* ========== MAIN LAYOUT ========== */
+.main-container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    background: #1e1e1e;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+    margin: 20px auto;
+    min-height: calc(100vh - 80px);
+    transition: all 0.5s ease-in-out;
+    overflow: hidden;
+}
+
+.sidebar {
+    width: 280px;
+    background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 100%);
+    padding: 25px;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
+    transition: transform 0.5s ease-in-out;
+}
+
+.sidebar-hidden {
+    transform: translateX(-100%);
+    width: 0;
+    padding: 0;
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.logo img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 3px solid #4CAF50;
+    box-shadow: 0 0 20px rgba(76, 175, 80, 0.5);
+    transition: transform 0.3s;
+}
+
+.logo img:hover {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.sidebar h2 {
+    color: #f0f0f0;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #4CAF50;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+#semester-list {
+    list-style: none;
+    padding: 0;
+}
+
+#semester-list li {
+    padding: 18px;
+    margin-bottom: 15px;
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.3em;
+    border-left: 4px solid transparent;
+}
+
+#semester-list li:hover {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    transform: translateX(10px);
+    border-left-color: #fff;
+}
+
+#semester-list li.active {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border-left-color: #ffc107;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+}
+
+.content {
+    flex-grow: 1;
+    padding: 30px;
+    overflow-y: auto;
+    background: #1a1a1a;
+}
+
+.content-full {
+    width: 100%;
+    max-width: none;
+}
+
+header h1 {
+    font-family: 'Teko', sans-serif;
+    color: #f0f0f0;
+    font-size: 3em;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+}
+
+.branch-nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.branch-item {
+    background: linear-gradient(135deg, #333 0%, #2a2a2a 100%);
+    color: #f0f0f0;
+    padding: 15px 35px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1.2em;
+    border: 2px solid transparent;
+}
+
+.branch-item:hover {
+    background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(255, 193, 7, 0.5);
+}
+
+.branch-item.active {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    border-color: #4CAF50;
+    box-shadow: 0 5px 15px rgba(0, 123, 255, 0.5);
+}
+
+/* ========== ROUTINE TABLE STYLES ========== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #f0f0f0;
+    animation: fadeInScale 0.7s ease-in-out;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 20px;
+    text-align: left;
+    border: 1px solid #444;
+}
+
+th {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
